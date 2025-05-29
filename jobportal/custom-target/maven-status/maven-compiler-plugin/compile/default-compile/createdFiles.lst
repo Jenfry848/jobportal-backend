@@ -1,0 +1,16 @@
+com\jobportal\jobportal\JobportalApplication.class
+com\jobportal\jobportal\service\JobService.class
+com\jobportal\jobportal\repository\UserRepository.class
+com\jobportal\jobportal\service\ApplicationService.class
+com\jobportal\jobportal\repository\JobRepository.class
+com\jobportal\jobportal\exception\GlobalExceptionHandler.class
+com\jobportal\jobportal\service\UserService.class
+com\jobportal\jobportal\controller\JobController.class
+com\jobportal\jobportal\controller\UserController.class
+com\jobportal\jobportal\exception\ResourceNotFoundException.class
+com\jobportal\jobportal\dto\ApplicationRequest.class
+com\jobportal\jobportal\model\User.class
+com\jobportal\jobportal\model\Application.class
+com\jobportal\jobportal\model\Job.class
+com\jobportal\jobportal\repository\ApplicationRepository.class
+com\jobportal\jobportal\controller\ApplicationController.class

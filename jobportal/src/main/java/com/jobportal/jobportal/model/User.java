@@ -1,6 +1,8 @@
 package com.jobportal.jobportal.model;
 
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
@@ -14,9 +16,15 @@ public class User {
     private String lastName;
     private String email;
     private String phone;
-
     // Par exemple, pour différencier recruteur et candidat
     private String role;
+
+    // 🔁 Liens inverses
+    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    private List<Job> jobs;
+
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    private List<Application> applications;
 
     // Constructeurs
     public User() {}
