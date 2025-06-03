@@ -1,35 +1,55 @@
 package com.jobportal.jobportal.model;
 
+import com.jobportal.jobportal.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
+    @Email
     private String email;
     private String phone;
-    // Par exemple, pour différencier recruteur et candidat
-    private String role;
+    @Size(min = 4, max = 4)
+    private String password;
+
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // 🔁 Liens inverses
-    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "createdBy")
     private List<Job> jobs;
 
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Application> applications;
 
     // Constructeurs
-    public User() {}
+    public User() {
+        this.jobs = new ArrayList<>();
+        this.applications = new ArrayList<>();
+    }
 
-    public User(String firstName, String lastName, String email, String phone, String role) {
+
+    public User(String firstName, String lastName, String email, String phone, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -37,8 +57,27 @@ public class User {
         this.role = role;
     }
 
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
     // Getters / Setters
-    public Long getId() { return id; }
+    public UUID getId() { return id; }
+    public void setId(UUID id) {
+        this.id = id;
+    }
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
@@ -48,9 +87,12 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 }

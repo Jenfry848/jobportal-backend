@@ -1,113 +1,55 @@
 package com.jobportal.jobportal.model;
 
+import com.jobportal.jobportal.enums.ApplicationStatus;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "applications")
 public class Application {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Lob
-    private String skills;
-
-    @Lob
-    private String experiences; // On peut améliorer ça plus tard avec une structure détaillée
-
-    private LocalDate appliedDate;
-
-    // Relation vers l'offre
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Job job;
 
-    @ManyToOne
-    @JoinColumn(name = "candidate_id")
-    private User candidate;
+    private LocalDate dateApplied;
+    private String coverLetter;
+    private String resumeText;
 
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatus status;
+
+    //  Constructeur par défaut
     public Application() {
-        this.appliedDate = LocalDate.now();
+        this.dateApplied = LocalDate.now();
+        this.status = ApplicationStatus.PENDING;
     }
 
-    public Application(String firstName, String lastName, String email, String phone, String skills, String experiences, Job job) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.skills = skills;
-        this.experiences = experiences;
-        this.job = job;
-        this.appliedDate = LocalDate.now();
-    }
+    // 🔧 Getters et Setters
 
-    // Getters et Setters
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public User getUser() {
+        return user;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
-    }
-
-    public String getExperiences() {
-        return experiences;
-    }
-
-    public void setExperiences(String experiences) {
-        this.experiences = experiences;
-    }
-
-    public LocalDate getAppliedDate() {
-        return appliedDate;
-    }
-
-    public void setAppliedDate(LocalDate appliedDate) {
-        this.appliedDate = appliedDate;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Job getJob() {
@@ -116,5 +58,37 @@ public class Application {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public LocalDate getDateApplied() {
+        return dateApplied;
+    }
+
+    public void setDateApplied(LocalDate dateApplied) {
+        this.dateApplied = dateApplied;
+    }
+
+    public String getCoverLetter() {
+        return coverLetter;
+    }
+
+    public void setCoverLetter(String coverLetter) {
+        this.coverLetter = coverLetter;
+    }
+
+    public String getResumeText() {
+        return resumeText;
+    }
+
+    public void setResumeText(String resumeText) {
+        this.resumeText = resumeText;
+    }
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
     }
 }

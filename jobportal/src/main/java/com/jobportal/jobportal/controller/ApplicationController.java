@@ -1,12 +1,16 @@
 package com.jobportal.jobportal.controller;
 
 import com.jobportal.jobportal.model.Application;
+import com.jobportal.jobportal.model.User;
+import com.jobportal.jobportal.repository.UserRepository;
 import com.jobportal.jobportal.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/applications")
@@ -16,36 +20,44 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    // ➕ Postuler à une offre (via son ID)
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/job/{jobId}")
-    public ResponseEntity<Application> createApplication(@RequestBody Application application,
-                                                         @PathVariable Long jobId) {
-        return ResponseEntity.ok(applicationService.createApplication(application, jobId));
+    public ResponseEntity<?> createApplication(@RequestBody Application application, @PathVariable UUID jobId) {
+        if (application.getUser() == null || application.getUser().getId() == null) {
+            return ResponseEntity.badRequest().body("Utilisateur manquant");
+        }
+
+        Optional<User> user = userRepository.findById(application.getUser().getId());
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().body("Utilisateur introuvable");
+        }
+
+        Application saved = applicationService.createApplication(application, jobId, user.get());
+        return ResponseEntity.ok(saved);
     }
 
-    // 📄 Obtenir toutes les candidatures
+
+
     @GetMapping
-    public ResponseEntity<List<Application>> getAllApplications() {
-        return ResponseEntity.ok(applicationService.getAllApplications());
+    public List<Application> getAllApplications() {
+        return applicationService.getAllApplications();
     }
 
-    // 🔍 Candidature par ID
     @GetMapping("/{id}")
-    public ResponseEntity<Application> getApplicationById(@PathVariable Long id) {
-        return applicationService.getApplicationById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Application> getApplicationById(@PathVariable UUID id) {
+        Optional<Application> app = applicationService.getApplicationById(id);
+        return app.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // 📥 Toutes les candidatures pour une offre spécifique
     @GetMapping("/job/{jobId}")
-    public ResponseEntity<List<Application>> getApplicationsByJobId(@PathVariable Long jobId) {
-        return ResponseEntity.ok(applicationService.getApplicationsByJobId(jobId));
+    public List<Application> getApplicationsByJobId(@PathVariable UUID jobId) {
+        return applicationService.getApplicationsByJobId(jobId);
     }
 
-    // ❌ Supprimer une candidature
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteApplication(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteApplication(@PathVariable UUID id) {
         applicationService.deleteApplication(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,12 +1,18 @@
 package com.jobportal.jobportal.controller;
 
+import com.jobportal.jobportal.dto.JobRequestDTO;
+import com.jobportal.jobportal.enums.Role;
 import com.jobportal.jobportal.model.Job;
+import com.jobportal.jobportal.model.User;
+import com.jobportal.jobportal.repository.UserRepository;
 import com.jobportal.jobportal.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/jobs")
@@ -16,54 +22,64 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
-    // ➕ Ajouter une nouvelle offre
+    @Autowired
+    private UserRepository userRepository;
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody Job job) {
+    public ResponseEntity<?> createJob(@RequestBody JobRequestDTO dto) {
+        Optional<User> recruiter = userRepository.findById(dto.getCreatedById());
+        if (recruiter.isEmpty() || recruiter.get().getRole() != Role.RECRUITER) {
+            return ResponseEntity.badRequest().body("Créateur non valide ou non recruteur");
+        }
+
+        Job job = new Job();
+        job.setTitle(dto.getTitle());
+        job.setDescription(dto.getDescription());
+        job.setLocation(dto.getLocation());
+        job.setType(dto.getType());
+        job.setSalaryMin(dto.getSalaryMin());
+        job.setSalaryMax(dto.getSalaryMax());
+        job.setExperienceLevel(dto.getExperienceLevel());
+        job.setCreatedBy(recruiter.get());
+
         return ResponseEntity.ok(jobService.createJob(job));
     }
 
-    // 📄 Récupérer toutes les offres
+
     @GetMapping
-    public ResponseEntity<List<Job>> getAllJobs() {
-        return ResponseEntity.ok(jobService.getAllJobs());
+    public List<Job> getAllJobs() {
+        return jobService.getAllJobs();
     }
 
-    // 🔍 Récupérer une offre par ID
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
-        return jobService.getJobById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Job> getJobById(@PathVariable UUID id) {
+        Optional<Job> job = jobService.getJobById(id);
+        return job.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // ❌ Supprimer une offre
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteJob(@PathVariable UUID id) {
         jobService.deleteJob(id);
         return ResponseEntity.noContent().build();
     }
 
-    // 🔎 Rechercher par lieu
+    // 🔎 Filtres
     @GetMapping("/search/location")
-    public ResponseEntity<List<Job>> searchByLocation(@RequestParam String location) {
-        return ResponseEntity.ok(jobService.searchByLocation(location));
+    public List<Job> searchByLocation(@RequestParam String location) {
+        return jobService.searchByLocation(location);
     }
 
-    // 🔎 Rechercher par type
     @GetMapping("/search/type")
-    public ResponseEntity<List<Job>> searchByType(@RequestParam String type) {
-        return ResponseEntity.ok(jobService.searchByType(type));
+    public List<Job> searchByType(@RequestParam String type) {
+        return jobService.searchByType(type);
     }
 
-    // 🔎 Rechercher par niveau d'expérience
     @GetMapping("/search/experience")
-    public ResponseEntity<List<Job>> searchByExperience(@RequestParam String level) {
-        return ResponseEntity.ok(jobService.searchByExperienceLevel(level));
+    public List<Job> searchByExperienceLevel(@RequestParam String level) {
+        return jobService.searchByExperienceLevel(level);
     }
 
-    // 🔎 Rechercher par titre
     @GetMapping("/search/title")
-    public ResponseEntity<List<Job>> searchByTitle(@RequestParam String title) {
-        return ResponseEntity.ok(jobService.searchByTitle(title));
+    public List<Job> searchByTitle(@RequestParam String title) {
+        return jobService.searchByTitle(title);
     }
 }

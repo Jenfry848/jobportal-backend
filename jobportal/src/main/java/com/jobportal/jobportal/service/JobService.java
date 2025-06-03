@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class JobService {
@@ -14,42 +15,51 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
-    // ➕ Créer une nouvelle offre d’emploi
+    //  Créer une nouvelle offre d’emploi
     public Job createJob(Job job) {
+        if (job.getCreatedBy() == null || job.getCreatedBy().getRole() == null) {
+            throw new IllegalArgumentException("Utilisateur créateur manquant.");
+        }
+
+        if (job.getCreatedBy().getRole().name().equals("CANDIDATE")) {
+            throw new IllegalArgumentException("Seuls les recruteurs peuvent publier des offres.");
+        }
+
         return jobRepository.save(job);
     }
 
-    // 📄 Récupérer toutes les offres
+
+    //  Récupérer toutes les offres
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
     }
 
-    // 🔍 Récupérer une offre par ID
-    public Optional<Job> getJobById(Long id) {
+    //  Récupérer une offre par ID
+    public Optional<Job> getJobById(UUID id) {
         return jobRepository.findById(id);
     }
 
-    // ❌ Supprimer une offre par ID
-    public void deleteJob(Long id) {
+    //  Supprimer une offre par ID
+    public void deleteJob(UUID id) {
         jobRepository.deleteById(id);
     }
 
-    // 🔎 Rechercher par lieu
+    //  Rechercher par lieu
     public List<Job> searchByLocation(String location) {
         return jobRepository.findByLocationContainingIgnoreCase(location);
     }
 
-    // 🔎 Rechercher par type
+    //  Rechercher par type
     public List<Job> searchByType(String type) {
         return jobRepository.findByTypeContainingIgnoreCase(type);
     }
 
-    // 🔎 Rechercher par niveau d'expérience
+    //  Rechercher par niveau d'expérience
     public List<Job> searchByExperienceLevel(String level) {
         return jobRepository.findByExperienceLevelContainingIgnoreCase(level);
     }
 
-    // 🔎 Rechercher par titre
+    //  Rechercher par titre
     public List<Job> searchByTitle(String title) {
         return jobRepository.findByTitleContainingIgnoreCase(title);
     }

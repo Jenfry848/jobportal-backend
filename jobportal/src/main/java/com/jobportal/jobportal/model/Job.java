@@ -2,46 +2,62 @@ package com.jobportal.jobportal.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "jobs")
 public class Job {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     private String title;
     private String description;
     private String location;
     private String type;         // ex: full-time, part-time, freelance
-    private String salaryRange;
+    private Integer salaryMin;
+    private Integer salaryMax;
     private String experienceLevel;
     private LocalDate postedDate;
 
     @ManyToOne
-    @JoinColumn(name = "recruiter_id")
-    private User recruiter;
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
+    @OneToMany(mappedBy = "job")
+    private List<Application> applications;
+
+    // ✅ Constructeur par défaut
     public Job() {
         this.postedDate = LocalDate.now();
+        this.applications = new ArrayList<>();
     }
 
+    // ✅ Constructeur complet
     public Job(String title, String description, String location, String type,
-               String salaryRange, String experienceLevel) {
+               Integer salaryMin, Integer salaryMax, String experienceLevel) {
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
-        this.salaryRange = salaryRange;
+        this.salaryMin = salaryMin;
+        this.salaryMax = salaryMax;
         this.experienceLevel = experienceLevel;
         this.postedDate = LocalDate.now();
+        this.applications = new ArrayList<>();
     }
 
-    // Getters and Setters
+    // ✅ Getters et Setters
 
-    public Long getId() {
+    public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -76,12 +92,20 @@ public class Job {
         this.type = type;
     }
 
-    public String getSalaryRange() {
-        return salaryRange;
+    public Integer getSalaryMin() {
+        return salaryMin;
     }
 
-    public void setSalaryRange(String salaryRange) {
-        this.salaryRange = salaryRange;
+    public void setSalaryMin(Integer salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Integer getSalaryMax() {
+        return salaryMax;
+    }
+
+    public void setSalaryMax(Integer salaryMax) {
+        this.salaryMax = salaryMax;
     }
 
     public String getExperienceLevel() {
@@ -98,5 +122,21 @@ public class Job {
 
     public void setPostedDate(LocalDate postedDate) {
         this.postedDate = postedDate;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
     }
 }
