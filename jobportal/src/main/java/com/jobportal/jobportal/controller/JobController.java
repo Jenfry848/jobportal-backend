@@ -49,17 +49,28 @@ public class JobController {
         return jobService.getAllJobs();
     }
 
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable UUID id) {
         Optional<Job> job = jobService.getJobById(id);
         return job.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/recruiter/recruiterId}")
+    public List<Job> getJobsByRecruiterId(@PathVariable UUID recruiterId) {
+        return jobService.getJobsByRecruiterId(recruiterId);
+    }
+
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteJob(@PathVariable UUID id) {
         jobService.deleteJob(id);
         return ResponseEntity.noContent().build();
     }
+
+
 
     // 🔎 Filtres
     @GetMapping("/search/location")

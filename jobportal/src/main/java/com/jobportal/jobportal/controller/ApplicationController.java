@@ -74,6 +74,11 @@ public class ApplicationController {
         return app.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Application> getApplicationByUserId(@PathVariable UUID userId) {
+        return applicationService.getApplicationByUserId(userId);
+    }
+
     @GetMapping("/job/{jobId}")
     public List<Application> getApplicationsByJobId(@PathVariable UUID jobId) {
         return applicationService.getApplicationsByJobId(jobId);

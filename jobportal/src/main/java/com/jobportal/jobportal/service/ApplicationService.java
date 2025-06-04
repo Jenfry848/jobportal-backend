@@ -48,6 +48,10 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
+    public List<Application> getApplicationByUserId(UUID userId) {
+        return applicationRepository.findByUserId(userId);
+    }
+
     //  Récupérer une candidature par ID
     public Optional<Application> getApplicationById(UUID id) {
         return applicationRepository.findById(id);

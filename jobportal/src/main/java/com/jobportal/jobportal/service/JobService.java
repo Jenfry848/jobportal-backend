@@ -47,6 +47,11 @@ public class JobService {
         return jobRepository.findAll();
     }
 
+    //  Récupérer toutes les offres
+    public List<Job> getJobsByRecruiterId(UUID recruiterId) {
+        return jobRepository.findByCreatedById(recruiterId);
+    }
+
     //  Récupérer une offre par ID
     public Optional<Job> getJobById(UUID id) {
         return jobRepository.findById(id);
