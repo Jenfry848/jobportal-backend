@@ -8,10 +8,10 @@ public class JobRequestDTO {
     private String description;
     private String location;
     private String type;
-    private Integer salaryMin;
-    private Integer salaryMax;
+    private Double salaryMin;
+    private Double salaryMax;
     private String experienceLevel;
-    private UUID createdById;
+    private UUID recruiterId;
 
     // Getters & Setters
 
@@ -43,17 +43,17 @@ public class JobRequestDTO {
         this.type = type;
     }
 
-    public Integer getSalaryMin() {
+    public Double getSalaryMin() {
         return salaryMin;
     }
-    public void setSalaryMin(Integer salaryMin) {
+    public void setSalaryMin(Double salaryMin) {
         this.salaryMin = salaryMin;
     }
 
-    public Integer getSalaryMax() {
+    public Double getSalaryMax() {
         return salaryMax;
     }
-    public void setSalaryMax(Integer salaryMax) {
+    public void setSalaryMax(Double salaryMax) {
         this.salaryMax = salaryMax;
     }
 
@@ -64,10 +64,10 @@ public class JobRequestDTO {
         this.experienceLevel = experienceLevel;
     }
 
-    public UUID getCreatedById() {
-        return createdById;
+    public UUID getRecruiterId() {
+        return recruiterId;
     }
-    public void setCreatedById(UUID createdById) {
-        this.createdById = createdById;
+    public void setRecruiterId(UUID createdById) {
+        this.recruiterId = createdById;
     }
 }

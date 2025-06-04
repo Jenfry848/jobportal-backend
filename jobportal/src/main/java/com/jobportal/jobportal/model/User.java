@@ -29,8 +29,6 @@ public class User {
     private String phone;
     @Size(min = 4, max = 4)
     private String password;
-
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -49,12 +47,13 @@ public class User {
     }
 
 
-    public User(String firstName, String lastName, String email, String phone, Role role) {
+    public User(String firstName, String lastName, String email, String phone, Role role, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.password =password;
     }
 
     public List<Job> getJobs() {

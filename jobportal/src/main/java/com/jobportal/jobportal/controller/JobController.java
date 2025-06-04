@@ -26,7 +26,7 @@ public class JobController {
     private UserRepository userRepository;
     @PostMapping
     public ResponseEntity<?> createJob(@RequestBody JobRequestDTO dto) {
-        Optional<User> recruiter = userRepository.findById(dto.getCreatedById());
+        Optional<User> recruiter = userRepository.findById(dto.getRecruiterId());
         if (recruiter.isEmpty() || recruiter.get().getRole() != Role.RECRUITER) {
             return ResponseEntity.badRequest().body("Créateur non valide ou non recruteur");
         }

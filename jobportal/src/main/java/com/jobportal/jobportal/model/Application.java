@@ -23,7 +23,8 @@ public class Application {
 
     private LocalDate dateApplied;
     private String coverLetter;
-    private String resumeText;
+    private String skills;
+    private String experiences;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
@@ -76,12 +77,20 @@ public class Application {
         this.coverLetter = coverLetter;
     }
 
-    public String getResumeText() {
-        return resumeText;
+    public String getSkills() {
+        return skills;
     }
 
-    public void setResumeText(String resumeText) {
-        this.resumeText = resumeText;
+    public void setSkills(String resumeText) {
+        this.skills = resumeText;
+    }
+    
+    public String getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(String experiences) {
+        this.experiences = experiences;
     }
 
     public ApplicationStatus getStatus() {

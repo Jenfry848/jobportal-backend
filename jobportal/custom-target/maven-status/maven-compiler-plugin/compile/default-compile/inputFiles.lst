@@ -1,9 +1,13 @@
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\config\WebConfig.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\ApplicationController.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\AuthController.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\JobController.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\UserController.java
-C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\ApplicationRequest.java
-C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\exception\GlobalExceptionHandler.java
-C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\exception\ResourceNotFoundException.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\ApplicationRequestDTO.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\JobRequestDTO.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\UserRegisterDTO.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\enums\ApplicationStatus.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\enums\Role.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\JobportalApplication.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\model\Application.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\model\Job.java

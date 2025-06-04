@@ -6,15 +6,17 @@ public class ApplicationRequestDTO {
 
     public UUID userId;
     public String coverLetter;
-    public String resumeText;
+    public String skills;
+    public String experiences;
 
     public ApplicationRequestDTO() {
     }
 
-    public ApplicationRequestDTO(UUID userId, String coverLetter, String resumeText) {
+    public ApplicationRequestDTO(UUID userId, String coverLetter, String skills, String expereinces) {
         this.userId = userId;
         this.coverLetter = coverLetter;
-        this.resumeText = resumeText;
+        this.skills = skills;
+        this.experiences = experiences;
     }
 
     public UUID getUserId() {
@@ -33,11 +35,19 @@ public class ApplicationRequestDTO {
         this.coverLetter = coverLetter;
     }
 
-    public String getResumeText() {
-        return resumeText;
+    public String getSkills() {
+        return skills;
     }
 
-    public void setResumeText(String resumeText) {
-        this.resumeText = resumeText;
+    public void setSkills(String resumeText) {
+        this.skills = resumeText;
+    }
+
+    public String getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(String experiences) {
+        this.experiences = experiences;
     }
 }

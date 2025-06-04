@@ -18,8 +18,9 @@ public class Job {
     private String description;
     private String location;
     private String type;         // ex: full-time, part-time, freelance
-    private Integer salaryMin;
-    private Integer salaryMax;
+    private Double salaryMin;
+    private Double salaryMax;
+    private String company;
     private String experienceLevel;
     private LocalDate postedDate;
 
@@ -38,13 +39,14 @@ public class Job {
 
     // ✅ Constructeur complet
     public Job(String title, String description, String location, String type,
-               Integer salaryMin, Integer salaryMax, String experienceLevel) {
+               Double salaryMin, Double salaryMax,String company, String experienceLevel) {
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
         this.salaryMin = salaryMin;
         this.salaryMax = salaryMax;
+        this.company= company;
         this.experienceLevel = experienceLevel;
         this.postedDate = LocalDate.now();
         this.applications = new ArrayList<>();
@@ -92,22 +94,29 @@ public class Job {
         this.type = type;
     }
 
-    public Integer getSalaryMin() {
+    public Double getSalaryMin() {
         return salaryMin;
     }
 
-    public void setSalaryMin(Integer salaryMin) {
+    public void setSalaryMin(Double salaryMin) {
         this.salaryMin = salaryMin;
     }
 
-    public Integer getSalaryMax() {
+    public Double getSalaryMax() {
         return salaryMax;
     }
 
-    public void setSalaryMax(Integer salaryMax) {
+    public void setSalaryMax(Double salaryMax) {
         this.salaryMax = salaryMax;
     }
 
+    public String getCompany(){
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
     public String getExperienceLevel() {
         return experienceLevel;
     }
