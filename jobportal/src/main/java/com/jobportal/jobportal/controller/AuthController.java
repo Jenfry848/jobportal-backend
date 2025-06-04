@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("v1/auth")
 public class AuthController {
 
     @Autowired

@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("v1/jobs")
 public class JobController {
 
     @Autowired
@@ -70,11 +70,6 @@ public class JobController {
     @GetMapping("/search/type")
     public List<Job> searchByType(@RequestParam String type) {
         return jobService.searchByType(type);
-    }
-
-    @GetMapping("/search/experience")
-    public List<Job> searchByExperienceLevel(@RequestParam String level) {
-        return jobService.searchByExperienceLevel(level);
     }
 
     @GetMapping("/search/title")

@@ -39,8 +39,8 @@ public class ApplicationRequestDTO {
         return skills;
     }
 
-    public void setSkills(String resumeText) {
-        this.skills = resumeText;
+    public void setSkills(String skills) {
+        this.skills = skills;
     }
 
     public String getExperiences() {

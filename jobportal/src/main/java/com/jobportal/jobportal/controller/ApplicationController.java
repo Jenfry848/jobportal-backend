@@ -1,5 +1,6 @@
 package com.jobportal.jobportal.controller;
 
+import com.jobportal.jobportal.dto.ApplicationRequestDTO;
 import com.jobportal.jobportal.model.Application;
 import com.jobportal.jobportal.model.User;
 import com.jobportal.jobportal.repository.UserRepository;
@@ -13,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/applications")
+@RequestMapping("v1/applications")
 public class ApplicationController {
 
     @Autowired
@@ -23,19 +24,42 @@ public class ApplicationController {
     private UserRepository userRepository;
 
     @PostMapping("/job/{jobId}")
-    public ResponseEntity<?> createApplication(@RequestBody Application application, @PathVariable UUID jobId) {
-        if (application.getUser() == null || application.getUser().getId() == null) {
+
+    public ResponseEntity<?> createApplication(@PathVariable UUID jobId, @RequestBody ApplicationRequestDTO dto) {
+
+        if (dto.getUserId() == null) {
+
             return ResponseEntity.badRequest().body("Utilisateur manquant");
+
         }
 
-        Optional<User> user = userRepository.findById(application.getUser().getId());
+        Optional<User> user = userRepository.findById(dto.getUserId());
+
         if (user.isEmpty()) {
+
             return ResponseEntity.badRequest().body("Utilisateur introuvable");
+
         }
+
+        Application application = new Application();
+
+        application.setUser(user.get());
+
+        application.setJob(null); // sera set dans le service
+
+        application.setCoverLetter(dto.getCoverLetter());
+
+        application.setSkills(dto.getSkills());
+
+        application.setExperiences(dto.getExperiences());
 
         Application saved = applicationService.createApplication(application, jobId, user.get());
+
         return ResponseEntity.ok(saved);
+
     }
+
+
 
 
 

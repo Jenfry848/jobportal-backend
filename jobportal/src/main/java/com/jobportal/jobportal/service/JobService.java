@@ -5,6 +5,7 @@ import com.jobportal.jobportal.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +18,9 @@ public class JobService {
 
     //  Créer une nouvelle offre d’emploi
     public Job createJob(Job job) {
+        if (job.getPostedDate() == null) {
+            job.setPostedDate(LocalDate.now());
+        }
         if (job.getCreatedBy() == null || job.getCreatedBy().getRole() == null) {
             throw new IllegalArgumentException("Utilisateur créateur manquant.");
         }
