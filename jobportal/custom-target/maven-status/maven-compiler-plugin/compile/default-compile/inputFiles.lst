@@ -1,3 +1,4 @@
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\config\DataInitializer.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\config\WebConfig.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\ApplicationController.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\AuthController.java
@@ -5,6 +6,7 @@ C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\control
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\controller\UserController.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\ApplicationRequestDTO.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\JobRequestDTO.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\LoginDTO.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\dto\UserRegisterDTO.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\enums\ApplicationStatus.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\enums\Role.java
@@ -18,3 +20,4 @@ C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\reposit
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\service\ApplicationService.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\service\JobService.java
 C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\service\UserService.java
+C:\Users\ngoma\jobportal\jobportal\src\main\java\com\jobportal\jobportal\util\JwUtil.java
