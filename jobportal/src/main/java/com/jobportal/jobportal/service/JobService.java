@@ -25,6 +25,15 @@ public class JobService {
             throw new IllegalArgumentException("Seuls les recruteurs peuvent publier des offres.");
         }
 
+        boolean exists = jobRepository.existsByTitleAndLocationAndCompany(
+                job.getTitle(),
+                job.getLocation(),
+                job.getCompany()
+        );
+        if (exists){
+            throw new IllegalArgumentException("une offre identique existe dejà");
+        }
+
         return jobRepository.save(job);
     }
 

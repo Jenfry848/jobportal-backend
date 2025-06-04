@@ -1,5 +1,6 @@
 package com.jobportal.jobportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jobportal.jobportal.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames ="email")})
 public class User {
 
     @Id
@@ -35,6 +36,7 @@ public class User {
 
     // 🔁 Liens inverses
     @OneToMany(mappedBy = "createdBy")
+    @JsonIgnore
     private List<Job> jobs;
 
     @OneToMany(mappedBy = "user")

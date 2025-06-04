@@ -15,4 +15,6 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     List<Job> findByTypeContainingIgnoreCase(String type);
     List<Job> findByExperienceLevelContainingIgnoreCase(String experienceLevel);
     List<Job> findByTitleContainingIgnoreCase(String title);
+    List<Job> findByTitle(String title);
+    boolean existsByTitleAndLocationAndCompany(String title, String location, String company);
 }

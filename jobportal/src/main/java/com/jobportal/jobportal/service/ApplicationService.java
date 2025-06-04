@@ -27,6 +27,9 @@ public class ApplicationService {
         if (user.getRole() != Role.CANDIDATE) {
             throw new IllegalArgumentException("Seuls les candidats peuvent postuler à une offre.");
         }
+        if(applicationRepository.existsByUserIdAndJobId(user.getId(), jobId)){
+            throw new IllegalArgumentException("Vous avez déjà postulé à cette offre");
+        }
 
         Optional<Job> jobOptional = jobRepository.findById(jobId);
         if (jobOptional.isEmpty()) {

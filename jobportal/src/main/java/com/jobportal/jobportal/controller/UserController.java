@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "*")  // à ajuster pour le frontend Angular
 public class UserController {
 
     @Autowired

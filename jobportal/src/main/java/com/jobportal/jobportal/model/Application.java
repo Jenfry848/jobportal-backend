@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "applications")
+@Table(name = "applications", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","job_id"})})
 public class Application {
 
     @Id

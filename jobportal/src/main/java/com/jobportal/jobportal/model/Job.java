@@ -1,5 +1,6 @@
 package com.jobportal.jobportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "jobs")
+@Table(name = "jobs", uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "location","company"})})
 public class Job {
 
     @Id
@@ -29,6 +30,7 @@ public class Job {
     private User createdBy;
 
     @OneToMany(mappedBy = "job")
+    @JsonIgnore
     private List<Application> applications;
 
     // ✅ Constructeur par défaut

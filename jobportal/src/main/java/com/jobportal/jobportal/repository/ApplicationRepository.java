@@ -12,4 +12,5 @@ public interface ApplicationRepository extends JpaRepository<Application, UUID> 
 
     // Liste des candidatures associées à une offre d’emploi
     List<Application> findByJobId(UUID jobId);
+    boolean existsByUserIdAndJobId(UUID userId, UUID jobId);
 }

@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/applications")
-@CrossOrigin(origins = "*")
 public class ApplicationController {
 
     @Autowired
