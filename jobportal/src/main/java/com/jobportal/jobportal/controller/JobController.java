@@ -57,7 +57,7 @@ public class JobController {
         return job.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/recruiter/recruiterId}")
+    @GetMapping("/recruiter/{recruiterId}")
     public List<Job> getJobsByRecruiterId(@PathVariable UUID recruiterId) {
         return jobService.getJobsByRecruiterId(recruiterId);
     }
