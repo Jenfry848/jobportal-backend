@@ -1,10 +1,13 @@
 package com.jobportal.jobportal.model;
 
 import com.jobportal.jobportal.enums.ApplicationStatus;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "applications", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","job_id"})})
 public class Application {

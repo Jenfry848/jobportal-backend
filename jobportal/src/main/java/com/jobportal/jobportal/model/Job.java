@@ -1,12 +1,15 @@
 package com.jobportal.jobportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "jobs", uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "location","company"})})
 public class Job {

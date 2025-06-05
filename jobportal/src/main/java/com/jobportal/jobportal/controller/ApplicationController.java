@@ -45,7 +45,7 @@ public class ApplicationController {
 
         application.setUser(user.get());
 
-        application.setJob(null); // sera set dans le service
+        //application.setJob(null); // sera set dans le service
 
         application.setCoverLetter(dto.getCoverLetter());
 

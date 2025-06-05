@@ -1,6 +1,8 @@
 package com.jobportal.jobportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jobportal.jobportal.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
 
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames ="email")})
 public class User {
